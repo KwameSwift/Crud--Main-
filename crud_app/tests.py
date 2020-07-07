@@ -1,9 +1,20 @@
 # Create your tests here.
-from rest_framework import status
-from rest_framework.reverse import reverse
+from django.urls import reverse
 from rest_framework.test import APITestCase
+from rest_framework import status
+from django.contrib.auth.models import User
+from .models import userProfile
 
 
+# test the user registration endpoint
+class RegistrationTestCase(APITestCase):
+    def test_registration(self):
+        data = {"username": "lynn", "password": "PASwwordLit", "email": "lynn@gmail.com"}
+        response = self.client.post('/auth/users/', data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+
+# test case for the userprofile model
 class userProfileTestCase(APITestCase):
     profile_list_url = reverse('all-profiles')
 

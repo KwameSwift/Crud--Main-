@@ -20,8 +20,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # path to djoser end points
-    path('auth/', include('djoser.urls)')),
-    path('auth/', include('djoser.urls.jwt)')),
+    # path('auth/', include('djoser.urls)')),
+    # path('auth/', include('djoser.urls.jwt)')),
 
     # path to crud_app endpoint
     path("api/crud_app/", include("crud_app.urls")),
