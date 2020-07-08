@@ -13,9 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import djoser as djoser
-from django.contrib import admin, auth
+
+from django.contrib import admin
 from django.urls import path, include
+from rest_framework_simplejwt import views as jwt_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +28,10 @@ urlpatterns = [
 
     # path to crud_app endpoint
     path("api/crud_app/", include("crud_app.urls")),
+
+    # JSON web token views
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', jwt_views.TokenVerifyView.as_view(), name='token_refresh'),
 
 ]
