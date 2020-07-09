@@ -22,7 +22,7 @@ class userSerializer(serializers.ModelSerializer):
             username=validated_data['username']
         )
         user.set_password(validated_data['password'])
-        Token.objects.create(user=user)
-        user.save()
 
+        user.save()
+        Token.objects.create(user=user)
         return user
