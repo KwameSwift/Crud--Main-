@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -29,6 +28,8 @@ urlpatterns = [
     # path to crud_app endpoint
     path("api/crud_app/", include("crud_app.urls")),
 
+    # Email authentication
+    path("email/", include("rest_email_auth.urls")),
 
     # JSON web token views
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
