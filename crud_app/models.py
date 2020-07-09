@@ -11,7 +11,7 @@ class userProfile(models.Model):
     location = models.CharField(max_length=30, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    registration_number = models.TextField(max_length=30, blank=True)
+
 
 
 
