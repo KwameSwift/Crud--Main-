@@ -39,22 +39,6 @@ class UserProfileListCreateView(ListCreateAPIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class LoginView(APIView):
-    permission_classes = ()
-    authentication_classes = ()
-
-    def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        user = authenticate(username=username, password=password)
-        if user:
-            return Response({
-                "token": user.auth_token.key, "username": user.username, "is_superuser": user.is_superuser
-            })
-        else:
-            return Response({"error": "Wrong credentials"}, status=status.HTTP_400_BAD_REQUEST)
-
-
 class userProfileDetailView(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     authentication_classes = ()
@@ -72,3 +56,18 @@ class userView(ListCreateAPIView):
         return queryset
 
     serializer_class = userSerializer
+
+
+class userLogin(APIView):
+    authentication_classes = ()
+    permission_classes = ()
+
+
+    def post(self, request):
+        username = request.data.get("username")
+        password = request.data.get("password")
+        user = authenticate(username=username, password=password)
+        if user:
+            Response({"token": user.auth_token})
+        else:
+            Response({'error': "Wrong credentials"})
