@@ -27,7 +27,11 @@ class UserProfileListCreateView(ListCreateAPIView):
     def post(self, request):
         user = request.data
         user.profile = 1
-        serializer = userProfileSerializer(data=user)
+        email_verify = User.objects.filter(email=request.data.get('email'))
+        if len(email_verify) > 0:
+            return Response('Email already taken', status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = userProfileSerializer(data=user)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
